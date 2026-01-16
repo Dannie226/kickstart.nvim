@@ -950,10 +950,53 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+    config = function()
+      local treesitter = require 'nvim-treesitter'
+
+      treesitter.setup()
+      treesitter.install {
+        'bash',
+        'zsh',
+        'html',
+        'javascript',
+        'typescript',
+        'jsx',
+        'tsx',
+        'css',
+        'lua',
+        'go',
+        'rust',
+        'java',
+        'c',
+        'cpp',
+        'latex',
+      }
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = {
+          'sh',
+          'html',
+          'javascript',
+          'typescript',
+          'javascriptreact',
+          'typescriptreact',
+          'css',
+          'lua',
+          'go',
+          'rust',
+          'java',
+          'c',
+          'cpp',
+          'tex',
+        },
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
