@@ -228,6 +228,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     vim.keymap.del({ 'i', 's' }, '<Tab>')
+--     vim.keymap.del({ 'i', 's' }, '<S-Tab>')
+--   end,
+-- })
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -256,7 +263,12 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup {}
+    end,
+  }, -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -869,8 +881,6 @@ require('lazy').setup({
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
-
-      snippets = { preset = 'luasnip' },
 
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
       -- which automatically downloads a prebuilt binary when enabled.
