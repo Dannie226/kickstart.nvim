@@ -983,6 +983,7 @@ require('lazy').setup({
         'c',
         'cpp',
         'latex',
+        'csv',
       }
 
       vim.api.nvim_create_autocmd('FileType', {
@@ -1001,6 +1002,7 @@ require('lazy').setup({
           'c',
           'cpp',
           'tex',
+          'csv',
         },
         callback = function()
           vim.treesitter.start()
