@@ -1034,8 +1034,7 @@ require('lazy').setup({
     config = function()
       require('supermaven-nvim').setup {
         keymaps = {
-          accept_suggestion = '<Alt-y>',
-          accept_word = '<Alt-x>',
+          accept_suggestion = '<C-y>',
         },
         ignore_filetypes = { 'tex' },
       }
